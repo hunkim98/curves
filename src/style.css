@@ -95,3 +95,8 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+#background {
+  width: 500px;
+  height: 500px;
+}

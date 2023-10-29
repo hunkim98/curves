@@ -19,19 +19,25 @@ function cubicBezier(p0: Point, p1: Point, p2: Point, p3: Point, t: number) {
 }
 
 export function setupCanvas(element: HTMLCanvasElement) {
+  const dpr = window.devicePixelRatio || 1;
+  const rect = element.parentElement!.getBoundingClientRect();
+  element.style.width = rect.width + "px";
+  element.style.height = rect.height + "px";
+
   element.width = width;
   element.height = height;
 
   console.log(element);
   const ctx = element.getContext("2d")!;
+  ctx.scale(dpr, dpr);
   ctx.save();
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, width, height);
   ctx.restore();
-  var startPoint = { x: 50, y: 100 };
-  var controlPoint1 = { x: 150, y: 10 };
-  var controlPoint2 = { x: 250, y: 200 };
-  var endPoint = { x: 350, y: 100 };
+  const startPoint = { x: 50 / dpr, y: 100 / dpr };
+  const controlPoint1 = { x: 150 / dpr, y: 10 / dpr };
+  const controlPoint2 = { x: 250 / dpr, y: 200 / dpr };
+  const endPoint = { x: 350 / dpr, y: 100 / dpr };
 
   ctx.fillStyle = "black";
   ctx.strokeStyle = "black";
@@ -78,6 +84,7 @@ export function setupCanvas(element: HTMLCanvasElement) {
 
   ctx.save();
   ctx.beginPath();
+  let count = 0;
   for (var t = 0; t <= 1; t += 0.01) {
     var pointOnCurve = cubicBezier(
       startPoint,
@@ -86,9 +93,12 @@ export function setupCanvas(element: HTMLCanvasElement) {
       endPoint,
       t
     );
-    ctx.lineTo(pointOnCurve.x, pointOnCurve.y);
+    ctx.beginPath();
+    ctx.arc(pointOnCurve.x, pointOnCurve.y, t * 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+    count++;
   }
-  ctx.stroke();
   ctx.restore();
 }
 
