@@ -1,22 +1,7 @@
+import { drawCubicBezierPath } from "./utils/cubicBezierPath";
+
 const width = 500;
 const height = 500;
-
-function cubicBezier(p0: Point, p1: Point, p2: Point, p3: Point, t: number) {
-  var u = 1 - t;
-  var tt = t * t;
-  var uu = u * u;
-  var uuu = uu * u;
-  var ttt = tt * t;
-
-  var p: Point = {
-    x: 0,
-    y: 0,
-  };
-  p.x = uuu * p0.x + 3 * uu * t * p1.x + 3 * u * tt * p2.x + ttt * p3.x;
-  p.y = uuu * p0.y + 3 * uu * t * p1.y + 3 * u * tt * p2.y + ttt * p3.y;
-
-  return p;
-}
 
 export function setupCanvas(element: HTMLCanvasElement) {
   const dpr = window.devicePixelRatio || 1;
@@ -27,82 +12,65 @@ export function setupCanvas(element: HTMLCanvasElement) {
   element.width = width;
   element.height = height;
 
-  console.log(element);
   const ctx = element.getContext("2d")!;
+  ctx.clearRect(0, 0, width, height);
   ctx.scale(dpr, dpr);
   ctx.save();
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, width, height);
   ctx.restore();
-  const startPoint = { x: 50 / dpr, y: 100 / dpr };
-  const controlPoint1 = { x: 150 / dpr, y: 10 / dpr };
-  const controlPoint2 = { x: 250 / dpr, y: 200 / dpr };
-  const endPoint = { x: 350 / dpr, y: 100 / dpr };
-
-  ctx.fillStyle = "black";
-  ctx.strokeStyle = "black";
-
-  ctx.save();
-  ctx.arc(startPoint.x, startPoint.y, 5, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.restore();
-
-  ctx.save();
-  ctx.arc(endPoint.x, endPoint.y, 5, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.restore();
-
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(startPoint.x, startPoint.y);
-  ctx.lineTo(controlPoint1.x, controlPoint1.y);
-  ctx.stroke();
-  ctx.closePath();
-  ctx.restore();
-
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(controlPoint1.x, controlPoint1.y, 5, 0, 2 * Math.PI);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.restore();
-
-  ctx.save();
-  ctx.beginPath();
-  ctx.moveTo(endPoint.x, endPoint.y);
-  ctx.lineTo(controlPoint2.x, controlPoint2.y);
-  ctx.stroke();
-  ctx.closePath();
-  ctx.restore();
-
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(controlPoint2.x, controlPoint2.y, 5, 0, 2 * Math.PI);
-  ctx.stroke();
-  ctx.closePath();
-  ctx.restore();
-
-  ctx.save();
-  ctx.beginPath();
-  let count = 0;
-  for (var t = 0; t <= 1; t += 0.01) {
-    var pointOnCurve = cubicBezier(
-      startPoint,
-      controlPoint1,
-      controlPoint2,
-      endPoint,
-      t
-    );
-    ctx.beginPath();
-    ctx.arc(pointOnCurve.x, pointOnCurve.y, t * 5, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.closePath();
-    count++;
-  }
-  ctx.restore();
+  const startPoint = { x: 50, y: 100 };
+  const controlPoint1 = { x: 150, y: 10 };
+  const controlPoint2 = { x: 250, y: 200 };
+  const endPoint = { x: 350, y: 100 };
+  // drawCubicBezierPath(ctx, startPoint, controlPoint1, controlPoint2, endPoint);
+  drawAlphabetA(ctx);
 }
 
-interface Point {
-  x: number;
-  y: number;
+// drawing Alphabet A
+export function drawAlphabetA(ctx: CanvasRenderingContext2D) {
+  const dpr = window.devicePixelRatio || 1;
+  const alphabetWidth = (width * dpr) / 2 - 100;
+  const alphabetHeight = (height * dpr) / 2 - 60;
+  const point1: Point = { x: width / 2, y: 50 };
+  const point2: Point = { x: width / 2 - alphabetWidth / 2, y: alphabetHeight };
+  const point1Control1: Point = {
+    x: width / 2 - alphabetWidth / 4,
+    y: 50 + alphabetHeight / 4,
+  };
+  const point1Control2: Point = {
+    x: width / 2 - alphabetWidth / 4,
+    y: 50 + alphabetHeight / 2,
+  };
+  drawCubicBezierPath(ctx, point1, point1Control1, point1Control2, point2);
+
+  const point3: Point = {
+    x: width / 2 - alphabetWidth / 4,
+    y: 50 + alphabetHeight / 2,
+  };
+  const point4: Point = {
+    x: width / 2 + alphabetWidth / 4,
+    y: 50 + alphabetHeight / 2,
+  };
+  const point3Control1: Point = {
+    x: width / 2 - alphabetWidth / 4,
+    y: 50 + alphabetHeight / 2,
+  };
+  const point3Control2: Point = {
+    x: width / 2 + alphabetWidth / 4,
+    y: 50 + alphabetHeight / 2,
+  };
+  drawCubicBezierPath(ctx, point3, point3Control1, point3Control2, point4);
+
+  const point5: Point = { x: width / 2, y: 50 };
+  const point6: Point = { x: width / 2 + alphabetWidth / 2, y: alphabetHeight };
+  const point5Control1: Point = {
+    x: width / 2 + alphabetWidth / 4,
+    y: 50 + alphabetHeight / 4,
+  };
+  const point5Control2: Point = {
+    x: width / 2 + alphabetWidth / 4,
+    y: 50 + alphabetHeight / 2,
+  };
+  drawCubicBezierPath(ctx, point5, point5Control1, point5Control2, point6);
 }
