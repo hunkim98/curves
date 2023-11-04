@@ -1,4 +1,4 @@
-export function drawCubicBezierPath(
+export function drawCubicBezierPathLine(
   ctx: CanvasRenderingContext2D,
   startPoint: Point,
   controlPoint1: Point,
@@ -20,6 +20,7 @@ export function drawCubicBezierPath(
 
   ctx.fillStyle = "black";
   ctx.strokeStyle = "black";
+
   ctx.save();
   ctx.beginPath();
   ctx.arc(scaledStartPoint.x, scaledStartPoint.y, 5, 0, 2 * Math.PI);
@@ -65,37 +66,19 @@ export function drawCubicBezierPath(
   ctx.restore();
 
   ctx.save();
-  let count = 0;
-  for (var t = 0; t <= 1; t += 0.01) {
-    var pointOnCurve = cubicBezier(
-      scaledStartPoint,
-      scaledControlPoint1,
-      scaledControlPoint2,
-      scaledEndPoint,
-      t
-    );
-    ctx.beginPath();
-    ctx.arc(pointOnCurve.x, pointOnCurve.y, t * Math.random(), 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.closePath();
-    count++;
-  }
+  ctx.beginPath();
+  ctx.lineWidth = 5;
+  ctx.moveTo(scaledStartPoint.x, scaledStartPoint.y);
+  ctx.bezierCurveTo(
+    scaledControlPoint1.x,
+    scaledControlPoint1.y,
+    scaledControlPoint2.x,
+    scaledControlPoint2.y,
+    scaledEndPoint.x,
+    scaledEndPoint.y
+  );
+  ctx.stroke();
+  ctx.closePath();
+
   ctx.restore();
-}
-
-function cubicBezier(p0: Point, p1: Point, p2: Point, p3: Point, t: number) {
-  var u = 1 - t;
-  var tt = t * t;
-  var uu = u * u;
-  var uuu = uu * u;
-  var ttt = tt * t;
-
-  var p: Point = {
-    x: 0,
-    y: 0,
-  };
-  p.x = uuu * p0.x + 3 * uu * t * p1.x + 3 * u * tt * p2.x + ttt * p3.x;
-  p.y = uuu * p0.y + 3 * uu * t * p1.y + 3 * u * tt * p2.y + ttt * p3.y;
-
-  return p;
 }

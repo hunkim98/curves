@@ -164,31 +164,38 @@ export const F: AlphabetData[] = [
 
 export const G: AlphabetData[] = [
   {
-    // top to right diagonal
-    startPoint: { x: 1, y: 0 },
+    // right top to top middle
+    startPoint: { x: 0.85, y: 0.15 },
     controlPoint1: { x: 0.75, y: 0 },
     controlPoint2: { x: 0.25, y: 0 },
+    endPoint: { x: 0.5, y: 0 },
+  },
+  {
+    // top middle to left
+    startPoint: { x: 0.5, y: 0 },
+    controlPoint1: { x: 0.25, y: 0.5 },
+    controlPoint2: { x: 0.75, y: 0.5 },
     endPoint: { x: 0, y: 0.5 },
   },
   {
-    // right diagonal to bottom
+    // left to bottom
     startPoint: { x: 0, y: 0.5 },
-    controlPoint1: { x: 0.25, y: 0.5 },
-    controlPoint2: { x: 0.75, y: 0.5 },
-    endPoint: { x: 1, y: 1 },
-  },
-  {
-    // bottom to left diagonal
-    startPoint: { x: 1, y: 1 },
     controlPoint1: { x: 0.75, y: 1 },
     controlPoint2: { x: 0.25, y: 1 },
-    endPoint: { x: 0, y: 0.5 },
+    endPoint: { x: 0.5, y: 1 },
   },
   {
-    // left diagonal to middle
-    startPoint: { x: 0, y: 0.5 },
+    // bottotm to right
+    startPoint: { x: 0.5, y: 1 },
     controlPoint1: { x: 0.25, y: 0.5 },
     controlPoint2: { x: 0.75, y: 0.5 },
+    endPoint: { x: 0.85, y: 0.5 },
+  },
+  {
+    // horizontal
+    startPoint: { x: 0.5, y: 0.5 },
+    controlPoint1: { x: 0.75, y: 0.75 },
+    controlPoint2: { x: 0.75, y: 0.75 },
     endPoint: { x: 1, y: 0.5 },
   },
 ];
