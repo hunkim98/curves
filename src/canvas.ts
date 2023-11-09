@@ -43,8 +43,8 @@ export function drawAlphabetA(ctx: CanvasRenderingContext2D) {
     x: width / 2 - alphabetWidth / 4,
     y: 50 + alphabetHeight / 2,
   };
-  // drawCubicBezierPath(ctx, point1, point1Control1, point1Control2, point2);
-  drawCubicBezierPathLine(ctx, point1, point1Control1, point1Control2, point2);
+  drawCubicBezierPath(ctx, point1, point1Control1, point1Control2, point2);
+  // drawCubicBezierPathLine(ctx, point1, point1Control1, point1Control2, point2);
 
   const point3: Point = {
     x: width / 2 - alphabetWidth / 4,
@@ -62,8 +62,8 @@ export function drawAlphabetA(ctx: CanvasRenderingContext2D) {
     x: width / 2 + alphabetWidth / 4,
     y: 50 + alphabetHeight / 2,
   };
-  // drawCubicBezierPath(ctx, point3, point3Control1, point3Control2, point4);
-  drawCubicBezierPathLine(ctx, point3, point3Control1, point3Control2, point4);
+  drawCubicBezierPath(ctx, point3, point3Control1, point3Control2, point4);
+  // drawCubicBezierPathLine(ctx, point3, point3Control1, point3Control2, point4);
 
   const point5: Point = { x: width / 2, y: 50 };
   const point6: Point = { x: width / 2 + alphabetWidth / 2, y: alphabetHeight };
@@ -75,6 +75,6 @@ export function drawAlphabetA(ctx: CanvasRenderingContext2D) {
     x: width / 2 + alphabetWidth / 4,
     y: 50 + alphabetHeight / 2,
   };
-  drawCubicBezierPathLine(ctx, point5, point5Control1, point5Control2, point6);
-  // drawCubicBezierPath(ctx, point5, point5Control1, point5Control2, point6);
+  // drawCubicBezierPathLine(ctx, point5, point5Control1, point5Control2, point6);
+  drawCubicBezierPath(ctx, point5, point5Control1, point5Control2, point6);
 }

@@ -75,7 +75,7 @@ export function drawCubicBezierPath(
       t
     );
     ctx.beginPath();
-    ctx.arc(pointOnCurve.x, pointOnCurve.y, t * Math.random(), 0, 2 * Math.PI);
+    ctx.arc(pointOnCurve.x, pointOnCurve.y, t * 5, 0, 2 * Math.PI);
     ctx.fill();
     ctx.closePath();
     count++;
